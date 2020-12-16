@@ -1,0 +1,22 @@
+{
+  "name": "webserver-programming-project",
+  "version": "1.0.0",
+  "description": "SNS System using node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taejin1221/Webserver-Programming-Project.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Taejin An",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taejin1221/Webserver-Programming-Project/issues"
+  },
+  "homepage": "https://github.com/taejin1221/Webserver-Programming-Project#readme"
+}
