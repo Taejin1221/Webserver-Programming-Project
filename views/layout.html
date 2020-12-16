@@ -1,0 +1,64 @@
+<!-- layout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> {{title}} </title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+	<div class="container">
+		<div class="profile-wrap">
+			<div class="profile">
+				{ % if user and user.id % }
+					<div class="user-name">
+						{{'Hi! ' + user.nick}}
+					</div>
+					<div class="half">
+						<div> Following </div>
+						<div class="count following-count">
+							{{followingCount}}
+						</div>
+					</div>
+					<div class="half">
+						<div> Follower </div>
+						<div class="count follower-count">
+							{{followerCount}}
+						</div>
+					</div>
+					<input id="my-id" type="hidden" value="{{user.id}}">
+					<a id="my-profile" href="/profile" class="btn"> My profile </a>
+					<a id="logout" href="/auth/logout" class="btn"> Logout </a>
+				{ % else % }
+					<form id="login-form" action="/auth/login" method="post" >
+						<div class="input-group">
+							<label for="email"> E-mail </label>
+							<input id="email" type="email" name="email" required autofocus>
+						</div>
+						<div class="input-group">
+							<label for="password"> Password</label>
+							<input id="password" type="password" name="password" required>
+						</div>
+						<a id="join" href="/join" class="btn"> Register </a>
+						<button id="login" type="submit" class="btn"> Login </button>
+					</form>
+				{ % endif % }
+			</div>
+			{ % block content % }
+			{ % endblock % }
+		</div>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+			window.onload = () => {
+				if ( new URL( location.href ).searchParams.get( 'loginError' ) ) {
+					alert( new URL( location.href ).searchParams.get( 'loginError' ) );
+				}
+			};
+		</script>
+		{ % block script % }
+		{ % endblock % }
+	</div>
+</body>
+</html>

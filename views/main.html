@@ -1,0 +1,88 @@
+<!-- main.html -->
+{ % extends 'layout.html' % }
+
+{ % block content % }
+		<div class="timeline">
+			{ % if user % }
+				<div>
+					<form id="feed-form" action="/post" method="post" enctype="multipart/form-data">
+						<div class="input-group">
+							<textarea id="feed" name="content" maxlength="140"></textarea>
+						</div>
+						<div class="img-preview">
+							<img id="img-preview" src="" style="diplay: none;" width="250" alt="preview">
+							<input id="img-url" type="hidden" name="url">
+						</div>
+						<div>
+							<label id="img-label" for="img"> Upload Image </label>
+							<input id="img" type="file" accept="image/*">
+							<button id="feed-btn" type="submit" class="btn"> Upload </button>
+						</div>
+					</form>
+				</div>
+			{ % end if % }
+			<div class="feeds">
+				<form id="hashtag-form" action="/hashtag">
+					<input type="text" name="hashtag" placeholder="Search tag">
+					<button class="btn"> Search </button>
+				</form>
+				{ % for feed in feeds % }
+					<div class="feed">
+						<input type="hidden" value="{{feed.User.id}}" class="feed-user-id">
+						<input type="hidden" value="{{feed.id}}" class="feed-id">
+						<div class="feed-author" value="{{feed.User.nick}}"></div>
+						{ % if not followerIdList.includes( feed.User.id ) and feed.User.id !== user.id % }
+							<button class="feed-follow"> Follow </button>
+						{ % endif % }
+						<div class="feed-content"> {{feed.content}} </div>
+
+						{ % if feed.img % }
+							<div class="feed-img"> <img src="{{feed.img}}" alt="thumbnail"> </div>
+						{ % endif % }
+					</div>
+				{ % endfor % }
+			</div>
+		</div>
+{ % endblock % }
+
+{ % block script % }
+	<script>
+		if ( document.getElementById( 'img' ) ) {
+			document.getElementById( 'img' ).addEventListener( 'change', function (event) {
+				const formData = new FormData( );
+				console.log( this, this.files );
+
+				formData.append( 'img', this.files[0] );
+				axios.post( '/post/img', formData )
+					.then( ( res ) => {
+						document.getElementById( 'img-url' ).value = res.data.url;
+						document.getElementById( 'img-preview' ).url = res.data.url;
+						document.getElementById( 'img-preview' ).style.display = 'inline';
+					} )
+					.catch( ( err ) => {
+						console.error( err );
+					} );
+			} );
+		}
+
+		document.querySelectorAll( '.feed-follow' ).forEach( function ( tag ) {
+			tag.addEventListener( 'click', function ( ) {
+				const myId = document.querySelector( '#my-id' );
+				if ( myId ) {
+					const userId = tag.parentNode.querySelector( 'feed-user-id' ).value;
+					if ( userId != myId.value ) {
+						if ( confirm( 'Do you follow?' ) ) {
+							axios.post( `/user/${userId}/follow` )
+								.then( () => {
+									location.reload();
+								} )
+								.catch( ( err ) => {
+									console.error( err );
+								} );
+						}
+					}
+				}
+			} );
+		} );
+	</script>
+{ % end block % }
