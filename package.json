@@ -4,7 +4,7 @@
   "description": "SNS System using node.js",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app"
+    "start": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,17 @@
   "bugs": {
     "url": "https://github.com/taejin1221/Webserver-Programming-Project/issues"
   },
-  "homepage": "https://github.com/taejin1221/Webserver-Programming-Project#readme"
+  "homepage": "https://github.com/taejin1221/Webserver-Programming-Project#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nunjucks": "^3.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
