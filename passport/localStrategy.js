@@ -22,9 +22,9 @@ module.exports = ( ) => {
 			} else {
 				done( null, false, { message: 'Not Registered' } );
 			}
-		} catch ( error ) {
-			console.error( error );
-			done( error );
+		} catch ( err ) {
+			console.error( err );
+			done( err );
 		}
 	} ) );
 };

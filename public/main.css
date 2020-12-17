@@ -32,7 +32,7 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
 .input-group label { width: 25%; display: inline-block; }
 .input-group input { width: 70%; }
 
-.half { float: left; width: 50%; margin: 10px 0 }
+.half { float: left; width: 50%; margin: 10px 0; }
 
 #join { float: right; }
 
@@ -57,7 +57,7 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
 
 .user-name { font-weight: bold; font-size: 18px; }
 
-.count { font-weight: bold; color: orchid; font-size: 18px }
+.count { font-weight: bold; color: orchid; font-size: 18px; }
 
 .timeline {
 	margin-top: 10px;

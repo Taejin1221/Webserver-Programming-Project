@@ -20,13 +20,13 @@ router.post( '/join', isNotLoggedIn, async ( req, res, next ) => {
 		await User.create( {
 			email,
 			nick,
-			passport: hash
+			password: hash
 		} );
 
 		return res.redirect( '/' );
 	} catch ( err ) {
 		console.error( err );
-		return next( error );
+		return next( err );
 	}
 } );
 
