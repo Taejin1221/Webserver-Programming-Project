@@ -69,7 +69,7 @@
 			tag.addEventListener( 'click', function ( ) {
 				const myId = document.querySelector( '#my-id' );
 				if ( myId ) {
-					const userId = tag.parentNode.querySelector( 'feed-user-id' ).value;
+					const userId = tag.parentNode.querySelector( '.feed-user-id' ).value;
 					if ( userId != myId.value ) {
 						if ( confirm( 'Do you follow?' ) ) {
 							axios.post( `/user/${userId}/follow` )

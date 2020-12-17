@@ -18,7 +18,7 @@ module.exports = ( ) => {
 			}, {
 				model: User,
 				attributes: [ 'id', 'nick' ],
-				as:' Followings'
+				as: 'Followings'
 			} ]
 		} )
 			.then( user => done( null, user ) )
