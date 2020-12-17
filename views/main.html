@@ -1,9 +1,9 @@
 <!-- main.html -->
-{ % extends 'layout.html' % }
+{% extends 'layout.html' %}
 
-{ % block content % }
+{% block content %}
 		<div class="timeline">
-			{ % if user % }
+			{% if user %}
 				<div>
 					<form id="feed-form" action="/post" method="post" enctype="multipart/form-data">
 						<div class="input-group">
@@ -20,32 +20,32 @@
 						</div>
 					</form>
 				</div>
-			{ % end if % }
+			{% endif %}
 			<div class="feeds">
 				<form id="hashtag-form" action="/hashtag">
 					<input type="text" name="hashtag" placeholder="Search tag">
 					<button class="btn"> Search </button>
 				</form>
-				{ % for feed in feeds % }
+				{% for feed in feeds %}
 					<div class="feed">
 						<input type="hidden" value="{{feed.User.id}}" class="feed-user-id">
 						<input type="hidden" value="{{feed.id}}" class="feed-id">
 						<div class="feed-author" value="{{feed.User.nick}}"></div>
-						{ % if not followerIdList.includes( feed.User.id ) and feed.User.id !== user.id % }
+						{% if not followerIdList.includes( feed.User.id ) and feed.User.id !== user.id %}
 							<button class="feed-follow"> Follow </button>
-						{ % endif % }
+						{% endif %}
 						<div class="feed-content"> {{feed.content}} </div>
 
-						{ % if feed.img % }
+						{% if feed.img %}
 							<div class="feed-img"> <img src="{{feed.img}}" alt="thumbnail"> </div>
-						{ % endif % }
+						{% endif %}
 					</div>
-				{ % endfor % }
+				{% endfor %}
 			</div>
 		</div>
-{ % endblock % }
+{% endblock %}
 
-{ % block script % }
+{% block script %}
 	<script>
 		if ( document.getElementById( 'img' ) ) {
 			document.getElementById( 'img' ).addEventListener( 'change', function (event) {
@@ -85,4 +85,4 @@
 			} );
 		} );
 	</script>
-{ % end block % }
+{% endblock %}

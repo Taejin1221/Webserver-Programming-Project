@@ -12,7 +12,7 @@
 	<div class="container">
 		<div class="profile-wrap">
 			<div class="profile">
-				{ % if user and user.id % }
+				{% if user and user.id %}
 					<div class="user-name">
 						{{'Hi! ' + user.nick}}
 					</div>
@@ -31,7 +31,7 @@
 					<input id="my-id" type="hidden" value="{{user.id}}">
 					<a id="my-profile" href="/profile" class="btn"> My profile </a>
 					<a id="logout" href="/auth/logout" class="btn"> Logout </a>
-				{ % else % }
+				{% else %}
 					<form id="login-form" action="/auth/login" method="post" >
 						<div class="input-group">
 							<label for="email"> E-mail </label>
@@ -44,10 +44,10 @@
 						<a id="join" href="/join" class="btn"> Register </a>
 						<button id="login" type="submit" class="btn"> Login </button>
 					</form>
-				{ % endif % }
+				{% endif %}
 			</div>
-			{ % block content % }
-			{ % endblock % }
+			{% block content %}
+			{% endblock %}
 		</div>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script>
@@ -57,8 +57,8 @@
 				}
 			};
 		</script>
-		{ % block script % }
-		{ % endblock % }
+		{% block script %}
+		{% endblock %}
 	</div>
 </body>
 </html>

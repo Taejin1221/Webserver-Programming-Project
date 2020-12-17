@@ -1,6 +1,6 @@
 // index.js
 const passport = require( 'passport' ),
-	local = require( './localStratege' );
+	local = require( './localStrategy' );
 	User = require( '../models/user' );
 
 module.exports = ( ) => {

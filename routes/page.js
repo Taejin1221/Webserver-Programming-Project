@@ -1,6 +1,7 @@
 // page.js
 const express = require( 'express' );
-const { isLoggedIn, isNotLoggedIn } = require( './middlewares' );
+const { isLoggedIn, isNotLoggedIn } = require( './middlewares' ),
+	{ Post, User } = require( '../models' );
 
 const router = express.Router( );
 
@@ -18,6 +19,26 @@ router.get( '/profile', isLoggedIn, ( req, res ) => {
 
 router.get( '/join', isNotLoggedIn, ( req, res ) => {
 	res.render( 'join', { title: 'Register - LionRoar' } );
+} );
+
+router.get( '/', async ( req, res, next ) => {
+	try {
+		const posts = await Post.findAll( {
+			include: {
+				model: User,
+				attributes: [ 'id', 'nick' ]
+			},
+			order: [ [ 'createdAt', 'DESC' ] ]
+		} );
+
+		res.render( 'main', {
+			title: 'LionRoar',
+			feeds: posts
+		} );
+	} catch ( err ) {
+		console.error( err );
+		next( err );
+	}
 } );
 
 module.exports = router;
