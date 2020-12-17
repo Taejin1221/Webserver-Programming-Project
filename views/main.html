@@ -10,7 +10,7 @@
 							<textarea id="feed" name="content" maxlength="140"></textarea>
 						</div>
 						<div class="img-preview">
-							<img id="img-preview" src="" style="diplay: none;" width="250" alt="preview">
+							<img id="img-preview" src="" style="display: none;" width="250" alt="preview">
 							<input id="img-url" type="hidden" name="url">
 						</div>
 						<div>
@@ -30,7 +30,7 @@
 					<div class="feed">
 						<input type="hidden" value="{{feed.User.id}}" class="feed-user-id">
 						<input type="hidden" value="{{feed.id}}" class="feed-id">
-						<div class="feed-author" value="{{feed.User.nick}}"></div>
+						<div class="feed-author"> {{feed.User.nick}} </div>
 						{% if not followerIdList.includes( feed.User.id ) and feed.User.id !== user.id %}
 							<button class="feed-follow"> Follow </button>
 						{% endif %}
