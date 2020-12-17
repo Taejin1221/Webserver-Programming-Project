@@ -20,7 +20,7 @@ module.exports = ( ) => {
 					done( null, false, { message: 'Password does not match' } );
 				}
 			} else {
-				done( null, false, { message: 'Not Registered' } );
+				done( null, false, { message: 'Not Registered User' } );
 			}
 		} catch ( err ) {
 			console.error( err );

@@ -25,11 +25,11 @@ module.exports = class User extends Sequelize.Model {
 			snsId: {
 				type: Sequelize.STRING( 30 ),
 				allowNull: true
-			},
+			}
 		}, {
 			sequelize,
 			timestamps: true,
-			undersocred: false,
+			underscored: false,
 			modelName: 'User',
 			tableName: 'users',
 			paranoid: true,
