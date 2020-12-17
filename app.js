@@ -5,13 +5,16 @@ const express = require( 'express' ),
 	path = require( 'path' ),
 	session = require( 'express-session' ),
 	nunjucks = require( 'nunjucks' ),
-	dotenv = require( 'dotenv' );
+	dotenv = require( 'dotenv' ),
+	passport = require( 'passport' );
 
-dotenv.config();
+dotenv.config( );
 const pageRouter = require( './routes/page' );
 const { sequelize } = require( './models' );
+const passportConfig = require( './passport' );
 
-const app = express();
+const app = express( );
+passportConfig( );
 
 app.set( 'port', process.env.PORT || 8001 );
 app.set( 'view engine', 'html' );
@@ -42,6 +45,8 @@ app.use( session( {
 		secure: false
 	}
 } ) );
+app.use( passport.initialize( ) );
+app.use( passport.session( ) );
 
 app.use( '/', pageRouter );
 
