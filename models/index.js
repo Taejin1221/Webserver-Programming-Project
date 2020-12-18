@@ -9,7 +9,7 @@ const User = require( './user' ),
 const db = { };
 
 const sequelize = new Sequelize( config.database, config.username, config.password, {
-	host: 'database-1.cqppsabzq26i.ap-northeast-2.rds.amazonaws.com'
+	host: 'database-1.cqppsabzq26i.ap-northeast-2.rds.amazonaws.com',
 	port: 3306,
 	logging: console.log,
 	maxConcurrentQueries: 100,
