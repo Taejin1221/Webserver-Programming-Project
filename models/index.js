@@ -14,9 +14,6 @@ const sequelize = new Sequelize( config.database, config.username, config.passwo
 	logging: console.log,
 	maxConcurrentQueries: 100,
 	dialect: 'mysql',
-	dialectOptions: {
-		ssl: 'Amazon RDS'
-	},
 	pool: { maxConnections: 5, maxIdleTime: 30 },
 	language: 'en'
 } );
