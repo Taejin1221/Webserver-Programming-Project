@@ -8,7 +8,18 @@ const User = require( './user' ),
 
 const db = { };
 
-const sequelize = new Sequelize( config.database, config.username, config.password, config );
+const sequelize = new Sequelize( config.database, config.username, config.password, {
+	host: 'database-1.cqppsabzq26i.ap-northeast-2.rds.amazonaws.com'
+	port: 3306,
+	logging: console.log,
+	maxConcurrentQueries: 100,
+	dialect: 'mysql',
+	dialectOptions: {
+		ssl: 'Amazon RDS'
+	},
+	pool: { maxConnections: 5, maxIdleTime: 30 },
+	language: 'en'
+} );
 
 db.sequelize = sequelize;
 db.User = User;

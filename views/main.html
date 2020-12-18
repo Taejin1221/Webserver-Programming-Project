@@ -34,10 +34,16 @@
 						{% if not followerIdList.includes( feed.User.id ) and feed.User.id !== user.id %}
 							<button class="feed-follow"> Follow </button>
 						{% endif %}
+
 						<div class="feed-content"> {{feed.content}} </div>
 
 						{% if feed.img %}
 							<div class="feed-img"> <img src="{{feed.img}}" alt="thumbnail"> </div>
+						{% endif %}
+
+						<button class="btn feed-hits"> Hits!🏏 {{feed.hits}} </button>
+						{% if feed.User.id === user.id %}
+							<button class="btn feed-hits-init"> init Hits </button>
 						{% endif %}
 					</div>
 				{% endfor %}
@@ -83,6 +89,32 @@
 					}
 				}
 			} );
+		} );
+
+		document.querySelectorAll( '.feed-hits' ).forEach( function ( tag ) {
+			tag.addEventListener( 'click', function ( ) {
+				const feedId = tag.parentNode.querySelector( '.feed-id' ).value;
+				axios.post( `/post/${feedId}/hits` )
+					.then( ( ) => {
+						location.reload();
+					} )
+					.catch( ( err ) => {
+						console.error( err );
+					} );
+			} )
+		} );
+
+		document.querySelectorAll( '.feed-hits-init' ).forEach( ( tag ) => {
+			tag.addEventListener( 'click', ( ) => {
+				const feedId = tag.parentNode.querySelector( '.feed-id' ).value;
+				axios.post( `/post/${feedId}/init` )
+					.then( ( ) => {
+						location.reload( );
+					} )
+					.catch( ( err ) => {
+						console.error( err );
+					} );
+			} )
 		} );
 	</script>
 {% endblock %}

@@ -1,0 +1,57 @@
+<!-- mypost.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+		<div class="timeline">
+			<div class="feeds">
+				{% for feed in feeds %}
+					<div class="feed">
+						<input type="hidden" value="{{feed.User.id}}" class="feed-user-id">
+						<input type="hidden" value="{{feed.id}}" class="feed-id">
+						<div class="feed-author"> {{feed.User.nick}} </div>
+
+						<div class="feed-content"> {{feed.content}} </div>
+
+						{% if feed.img %}
+							<div class="feed-img"> <img src="{{feed.img}}" alt="thumbnail"> </div>
+						{% endif %}
+
+						<button class="btn feed-hits"> Hits!🏏 {{feed.hits}} </button>
+						{% if feed.User.id === user.id %}
+							<button class="btn feed-hits-init"> init Hits </button>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+{% endblock %}
+
+{% block script %}
+	<script>
+		document.querySelectorAll( '.feed-hits' ).forEach( function ( tag ) {
+			tag.addEventListener( 'click', function ( ) {
+				const feedId = tag.parentNode.querySelector( '.feed-id' ).value;
+				axios.post( `/post/${feedId}/hits` )
+					.then( ( ) => {
+						location.reload();
+					} )
+					.catch( ( err ) => {
+						console.error( err );
+					} );
+			} )
+		} );
+
+		document.querySelectorAll( '.feed-hits-init' ).forEach( ( tag ) => {
+			tag.addEventListener( 'click', ( ) => {
+				const feedId = tag.parentNode.querySelector( '.feed-id' ).value;
+				axios.post( `/post/${feedId}/init` )
+					.then( ( ) => {
+						location.reload( );
+					} )
+					.catch( ( err ) => {
+						console.error( err );
+					} );
+			} )
+		} );
+	</script>
+{% endblock %}

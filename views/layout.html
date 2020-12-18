@@ -30,7 +30,9 @@
 					</div>
 					<input id="my-id" type="hidden" value="{{user.id}}">
 					<a id="my-profile" href="/profile" class="btn"> My profile </a>
+					<a id="my-post" href="/myPost" class="btn"> My posts </a>
 					<a id="logout" href="/auth/logout" class="btn"> Logout </a>
+					<a id="main" href="/" class="btn"> Main </a>
 				{% else %}
 					<form id="login-form" action="/auth/login" method="post" >
 						<div class="input-group">

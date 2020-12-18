@@ -4,7 +4,7 @@ const express = require( 'express' ),
 	path = require( 'path' ),
 	fs = require( 'fs' );
 
-const { Post, Hashtag } = require( '../models' );
+const { User, Post, Hashtag } = require( '../models' );
 const { isLoggedIn } = require( './middlewares' );
 
 const router = express.Router();
@@ -40,7 +40,8 @@ router.post( '/', isLoggedIn, upload2.none(), async ( req, res, next ) => {
 		const post = await Post.create( {
 			content: req.body.content,
 			img: req.body.url,
-			UserId: req.user.id
+			UserId: req.user.id,
+			hits: 0
 		} );
 
 		const hashtags = req.body.content.match( /#[^\s#]*/g );
@@ -55,6 +56,38 @@ router.post( '/', isLoggedIn, upload2.none(), async ( req, res, next ) => {
 
 			await post.addHashtags( result.map( r => r[0] ) );
 		}
+
+		res.redirect( '/' );
+	} catch( err ) {
+		console.error( err );
+		next( err );
+	}
+} );
+
+router.post( '/:feed/hits/', isLoggedIn, async ( req, res, next ) => {
+	try {
+		const post = await Post.findOne( { where: { id: req.params.feed } } );
+		await Post.update( {
+			hits: post.hits + 1
+		}, {
+			where: { id: req.params.feed }
+		} );
+
+		res.redirect( '/' );
+	} catch ( err ) {
+		console.error( err );
+		next( err );
+	}
+} );
+
+router.post( '/:feed/init/', isLoggedIn, async ( req, res, next ) => {
+	try {
+		const post = await Post.findOne( { where: { id: req.params.feed } } );
+		await Post.update( {
+			hits: 0
+		}, {
+			where: { id: req.params.feed }
+		} );
 
 		res.redirect( '/' );
 	} catch( err ) {

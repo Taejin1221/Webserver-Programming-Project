@@ -11,6 +11,10 @@ module.exports = class Post extends Sequelize.Model {
 			img: {
 				type: Sequelize.STRING( 200 ),
 				allowNull: true
+			},
+			hits: {
+				type: Sequelize.INTEGER.UNSIGNED,
+				allowNull: false
 			}
 		}, {
 			sequelize,

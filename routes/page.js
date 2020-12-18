@@ -21,6 +21,27 @@ router.get( '/join', isNotLoggedIn, ( req, res ) => {
 	res.render( 'join', { title: 'Register - LionRoar' } );
 } );
 
+router.get( '/myPost', isLoggedIn, async ( req, res, next ) => {
+	try {
+		const posts = await Post.findAll( {
+			include: {
+				model: User,
+				where: { id: req.user.id },
+				attributes: [ 'id', 'nick' ]
+			},
+			order: [ [ 'createdAt', 'DESC' ] ]
+		} );
+
+		res.render( 'mypost', {
+			title: 'My Posts - LionRoar',
+			feeds: posts
+		} );
+	} catch ( err ) {
+		console.error( err );
+		next( err );
+	}
+} );
+
 router.get( '/', async ( req, res, next ) => {
 	try {
 		const posts = await Post.findAll( {
